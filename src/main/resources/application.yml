@@ -16,4 +16,6 @@ spring:
       ddl-auto: create
   application:
     name: demo-project
+server:
+  port: 8081
 

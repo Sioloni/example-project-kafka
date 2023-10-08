@@ -3,6 +3,8 @@ package ru.test.demo_project.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.test.demo_project.dto.BoardDto;
+import ru.test.demo_project.exception.AdviceException;
+import ru.test.demo_project.exception.ErrorStatus;
 import ru.test.demo_project.mapper.BoardMapper;
 import ru.test.demo_project.repository.BoardRepository;
 
@@ -23,7 +25,8 @@ public class BoardController {
 
     @GetMapping("/{id}")
     public BoardDto getById(@PathVariable Long id){
-        return mapper.toDto(repository.findById(id).get());
+        return mapper.toDto(repository.findById(id).orElseThrow(() -> new AdviceException(ErrorStatus.ERROR_NOT_FOUND_ID)));
+
     }
 
     @PostMapping
